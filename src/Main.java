@@ -8,7 +8,6 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         List<String> purchases = new ArrayList<>();
-
         int k = 0;
 
         System.out.println("Добро пожаловать в планировщик покупок!");
@@ -32,24 +31,44 @@ public class Main {
 
                 switch (choice) {
                     case 1:
-                        System.out.println("Вы выбрали опцию добавления покупки в список. Введите ее название");
+                        System.out.println("Вы выбрали опцию добавления покупки в список. Введите ее название:");
                         input = scanner.nextLine();
-                        if (tooShort(input, k)) {
-                            break;
+                        if (tooShort(input)) {
+                            System.out.println("Введенное Вами значение слишком короткое!");
+                            k++;
                         } else {
                             purchases.add(capitalize(input));
                             System.out.println("Итоге в списке покупок: " + purchases.size());
-                            break;
                         }
+                        break;
 
                     case 2:
-                        System.out.println("Вы запросили список ваших покупок");
-                        if (purchases.isEmpty()) {
-                            System.out.println("В вашей корзине пока ничего нет");
-                            break;
-                        } else {
-                            for (int i = 0; i < purchases.size(); i++) {
-                                System.out.println((i + 1) + ". " + purchases.get(i));
+                        printList(purchases);
+                        break;
+
+                    case 3:
+                        printList(purchases);
+                        if (!purchases.isEmpty()) {
+                            System.out.println("Введите номер или название покупки для удаления");
+                            input = scanner.nextLine();
+                            try {
+                                int purchaseToRemove = Integer.parseInt(input) - 1;
+                                if (purchaseToRemove < purchases.size()) {
+                                    System.out.println("Покупка \"" + capitalize(purchases.get(purchaseToRemove)) + "\" удалена!");
+                                    purchases.remove(purchaseToRemove);
+                                    printList(purchases);
+                                } else {
+                                    System.out.println("В списке нет продукта с номером " + (purchaseToRemove + 1));
+                                }
+                            } catch (NumberFormatException exception) {
+                                String purchaseToRemove = capitalize(input);
+                                if (purchases.contains(purchaseToRemove)) {
+                                    System.out.println("Покупка " + purchaseToRemove + "удалена!");
+                                    purchases.remove(purchaseToRemove);
+                                    printList(purchases);
+                                } else {
+                                    System.out.println("Товар с таким названием не найден");
+                                }
                             }
                         }
 
@@ -80,18 +99,23 @@ public class Main {
         System.out.println("---------------------------------");
     }
 
-    public static boolean tooShort(String str, int k) {
-        if (str.length() < 2) {
-            System.out.println("Вводимое вами название слишком короткое, попробуйте снова");
-            k++;
-            return true;
-        } else {
-            return false;
-        }
+    public static boolean tooShort(String str) {
+        return str.length() < 2;
     }
 
     public static String capitalize(String str) {
         return Character.toUpperCase(str.charAt(0)) + str.substring(1).toLowerCase();
+    }
+
+    public static void printList(List<String> list) {
+        if (list.isEmpty()) {
+            System.out.println("В Вашей корзине пока ничего нет");
+        } else {
+            System.out.println("Список Ваших покупок: ");
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println((i + 1) + ". " + list.get(i));
+            }
+        }
     }
 }
 
