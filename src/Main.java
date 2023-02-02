@@ -71,6 +71,14 @@ public class Main {
                                 }
                             }
                         }
+                    case 4:
+                        System.out.println("Вы вошли в режим поиска. Введите ключевое слово:");
+                        input = scanner.nextLine();
+                        if (tooShort(input)) {
+                            System.out.println("Введенное значение слишком короткое, поиск невозможен");
+                        } else {
+                            purchaseSearch(input, purchases);
+                        }
 
                 }
                 System.out.println("Нажмите любую клавишу для продолжения");
@@ -114,6 +122,24 @@ public class Main {
             System.out.println("Список Ваших покупок: ");
             for (int i = 0; i < list.size(); i++) {
                 System.out.println((i + 1) + ". " + list.get(i));
+            }
+        }
+    }
+
+    public static void purchaseSearch(String str, List<String> list) {
+        if (list.isEmpty()) {
+            System.out.println("В Вашей корзине пока ничего нет");
+        } else {
+            int k = 0;
+            String strLower = str.toLowerCase();
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).toLowerCase().contains(strLower)) {
+                    System.out.println((i + 1) + ". " + list.get(i));
+                    k++;
+                }
+            }
+            if (k == 0) {
+                System.out.println("По Вашему запросу ничего не найдено!");
             }
         }
     }
