@@ -63,7 +63,7 @@ public class Main {
                             } catch (NumberFormatException exception) {
                                 String purchaseToRemove = capitalize(input);
                                 if (purchases.contains(purchaseToRemove)) {
-                                    System.out.println("Покупка " + purchaseToRemove + "удалена!");
+                                    System.out.println("Покупка \"" + purchaseToRemove + "\" удалена!");
                                     purchases.remove(purchaseToRemove);
                                     printList(purchases);
                                 } else {
