@@ -115,7 +115,7 @@ public class Main {
     }
     
     public static void add(List<String> list, String str) {
-        if (tooShort(str)) {
+        if (!tooShort(str)) {
             list.add(capitalize(str));
             System.out.println("Итоге в списке покупок: " + list.size());
         }
@@ -151,7 +151,7 @@ public class Main {
     }
 
     public static void removeByString(List<String> list, String str) {
-        if (tooShort(str)) {
+        if (!tooShort(str)) {
             String purchaseToRemove = capitalize(str);
             if (list.contains(purchaseToRemove)) {
                 System.out.println("Покупка \"" + purchaseToRemove + "\" удалена!");
@@ -179,7 +179,7 @@ public class Main {
     }
     
     public static void purchaseSearch(String str, List<String> list) {
-        if (tooShort(str)) {
+        if (!tooShort(str)) {
             if (list.isEmpty()) {
                 System.out.println("В Вашей корзине пока ничего нет");
             } else {
